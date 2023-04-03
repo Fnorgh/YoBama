@@ -2,7 +2,7 @@
 Hacklahoma 2023
 Ever wanted to replace all images in Chrome with Yobama? Now you can.
 
-Screenshot of Yobama Image Replacer
+![image](https://user-images.githubusercontent.com/102239083/229414904-5d6e88b9-c790-4534-b576-42a01b656960.png)
 
 To use:
 
