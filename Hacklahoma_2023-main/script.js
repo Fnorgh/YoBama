@@ -23,36 +23,38 @@ const replacedImages = {};
 // This function replaces all images on the page with a random image
 function replaceImages() {
   // Get all image elements on the page
-  const images = document.getElementsByTagName('img');
+  const images = document.querySelectorAll('all');
 
-  // Loop through all image elements
-  for (let i = 0; i < images.length; i++) {
-    // Check if the image has already been replaced
-    if (!replacedImages.hasOwnProperty(images[i].src)) {
-      // Get a random index from the imagePaths array
-      const randomIndex = Math.floor(Math.random() * imagePaths.length);
+  for(var i = 0; i < images.length; i++)
+  {
+    var img = images[i];
+    
+    var randomIndex = Math.floor(Math.random() * imagePaths.length);
+    img.src = imagePaths[randomIndex]
 
-      // Replace the image source with a random image from the imagePaths array
-      images[i].src = imagePaths[randomIndex];
-
-      // Add the replaced image to the replacedImages object
-      replacedImages[images[i].src] = true;
-    }
+    img.dataset.randomized = "true";
   }
 }
 
-// Run the replaceImages function when the page loads
-window.onload = function() {
+
+window.addEventListener('load', function () {
+
   replaceImages();
 
-  // Observe changes to the DOM and run replaceImages when changes occur
-  const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      if (mutation.type === 'childList') {
+  var observer = new MutationObserver(function (mutations) {
+    for (var i = 0; i < mutations.length; i++) {
+      var mutation = mutations[i];
+
+      if (mutation.addedNodes.length > 0){
         replaceImages();
+        break;
       }
-    });
+    }
   });
 
-  observer.observe(document.body, { childList: true, subtree: true });
-};
+    observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
+});
